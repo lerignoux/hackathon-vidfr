@@ -1,0 +1,170 @@
+<!doctype html>
+<html ng-app="HackathonFFAdminApp">
+<head>
+  <!-- Angular Material CSS using GitCDN to load directly from `bower-material/master` -->
+  <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
+
+  <!-- Data Table style sheet -->
+  <link href="static/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+  <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
+
+  <title>VidFr Administration</title>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script> -->
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+
+</head>
+{% raw %}
+<body ng-controller="AdminController" layout-align="center center">
+
+  <md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+    <div flex-xs flex-gt-xs="80" layout="column">
+
+      <md-card ng-repeat="cont in content">
+        <md-toolbar md-scroll-shrink>
+          <div class="md-toolbar-tools">
+            <img class="md-user-avatar"  src="static/images/logo_small.png"/>
+            <h3>
+              <span>{{cont.title}}</span>
+            </h3>
+          </div>
+        </md-toolbar>
+
+        <md-input-container flex-sm>
+          <label>Title</label>
+          <input ng-model="cont.title">
+        </md-input-container>
+
+        <div ng-repeat="scene in cont.scenes">
+          <div layout-gt-sm="row">
+            <md-input-container flex-sm>
+              <label>Video</label>
+              <input ng-model="scene.content">
+            </md-input-container>
+            <md-input-container flex-sm>
+              <label>Good Choice label</label>
+              <input ng-model="scene.choices.good">
+            </md-input-container>
+            <md-input-container flex-sm>
+              <label>Bad Choice label</label>
+              <input ng-model="scene.choices.bad">
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container flex-gt-sm>
+              <label>Good Choice video</label>
+              <input ng-model="scene.good.content">
+            </md-input-container>
+            <md-input-container flex-gt-sm>
+              <label>Good Choice explanation</label>
+              <textarea ng-model="scene.good.reason" md-maxlength="500" rows="1" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container flex-gt-sm>
+              <label>Bad Choice video</label>
+              <input ng-model="scene.bad.content">
+            </md-input-container>
+            <md-input-container flex-gt-sm>
+              <label>Bad Choice explanation</label>
+              <textarea ng-model="scene.bad.reason" md-maxlength="500" rows="1" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container flex-gt-sm>
+            <label>password</label>
+            <input ng-model="password">
+          </md-input-container>
+          <md-button class="md-icon-button" aria-label="Report Bug" ng-click="postContent(cont)">
+            <md-tooltip md-direction="bottom">Update</md-tooltip>
+            <md-icon md-svg-src="static/images/post.svg"></md-icon>
+          </md-button>
+        </div>
+
+      </md-card>
+
+      <md-card>
+        </md-card-header>
+        <md-toolbar md-scroll-shrink>
+            <div class="md-toolbar-tools">
+              <img class="md-user-avatar"  src="static/images/logo.svg"/>
+              <h3>
+                <span>New content</span>
+              </h3>
+            </div>
+          </md-toolbar>
+
+          <md-input-container flex-sm>
+            <label>Title</label>
+            <input ng-model="newContent.title">
+          </md-input-container>
+
+        <div ng-repeat="scene in newContent.scenes">
+          <div layout-gt-sm="row">
+            <md-input-container flex-sm>
+              <label>Video</label>
+              <input ng-model="scene.content">
+            </md-input-container>
+            <md-input-container flex-sm>
+              <label>Good Choice label</label>
+              <input ng-model="scene.choices.good">
+            </md-input-container>
+            <md-input-container flex-sm>
+              <label>Bad Choice label</label>
+              <input ng-model="scene.choices.bad">
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container flex-gt-sm>
+              <label>Good Choice video</label>
+              <input ng-model="scene.good.content">
+            </md-input-container>
+            <md-input-container flex-gt-sm>
+              <label>Good Choice explanation</label>
+              <textarea ng-model="scene.good.reason" md-maxlength="500" rows="1" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+
+          <div layout-gt-sm="row">
+            <md-input-container flex-gt-sm>
+              <label>Bad Choice video</label>
+              <input ng-model="scene.bad.content">
+            </md-input-container>
+            <md-input-container flex-gt-sm>
+              <label>Bad Choice explanation</label>
+              <textarea ng-model="scene.bad.reason" md-maxlength="500" rows="1" md-select-on-focus></textarea>
+            </md-input-container>
+          </div>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container flex-gt-sm>
+            <label>password</label>
+            <input ng-model="password">
+          </md-input-container>
+          <md-button class="md-icon-button" aria-label="Add content" ng-click="postContent(newContent)">
+            <md-tooltip md-direction="bottom">Add</md-tooltip>
+            <md-icon md-svg-src="static/images/post.svg"></md-icon>
+          </md-button>
+        </div>
+
+  </md-content>
+
+  </md-content>
+</body>
+{% endraw %}
+</html>

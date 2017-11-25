@@ -1,11 +1,11 @@
-# hackathon_ff
-A hackathon mini game backend project
+# VidFr
+A hackaton mini game backend project
 
 
 ## tldr
 ```
-docker run --name hackathon-ff-db -d mongo
-docker run --name hackathon-ff --restart=always -p 1443:80 --link hackathon-ff-db:mongo -v ~/Projects/hackathon-ff/:/app -d jazzdd/alpine-flask
+docker run --name hackathon-vidfr-db -d mongo
+docker run --name hackaton-vidfr --restart=always -p 1443:80 --link hackaton-vidfr-db:mongo -v ~/Projects/hackaton-vidfr/:/app -d jazzdd/alpine-flask
 ```
 
 ## API:

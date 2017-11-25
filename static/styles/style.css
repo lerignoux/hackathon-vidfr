@@ -1,0 +1,36 @@
+md-toast.md-success-toast-theme .md-toast-content{
+    background-color: green;
+}
+
+.video-container {
+  text-align: center;
+}
+
+table.md-table th.md-column, table.md-table td.md-cell {
+  color: #fff;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: #ee5555;
+}
+
+a {
+  color: #ffffff
+}
+
+a:visited {
+  color: #9999ff
+}
+
+md-toast.md-center {
+left: 50%;
+transform: translate3d(-50%, 0, 0);
+}
+
+.md-toolbar-tools img {
+  margin-right: 8px;
+}

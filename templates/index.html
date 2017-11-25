@@ -1,0 +1,60 @@
+<!doctype html>
+<html ng-app="HackathonFFApp">
+<head>
+  <!-- Angular Material CSS using GitCDN to load directly from `bower-material/master` -->
+  <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
+
+  <!-- Data Table style sheet -->
+  <link href="static/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+  <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
+
+  <title>VidFr</title>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script> -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+
+<body ng-controller="HackathonFFController" layout-align="center center">
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+  <div flex-xs flex-gt-xs="50" layout="column">
+    <md-card>
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <img class="md-user-avatar" src="static/images/logo_small.png"/>
+          <h3>
+            <span class="md-title">VidFr</span>
+          </h3>
+        </div>
+      </md-toolbar>
+
+      <span>
+        <a href="static/BusinessPlan.pdf">
+          <md-button class="md-icon-button" aria-label="Business Plan">
+            <md-tooltip md-direction="bottom">Our business plan</md-tooltip>
+            <md-icon md-svg-src="static/images/pdf.svg"></md-icon>
+          </md-button>
+        </a>
+          Our Business plan.
+      </span>
+
+
+      <md-card-content class="video-container">
+        <video width="640" controls>
+         <source src="{{ url_for('static', filename='videos/TFF.mp4') }}" type="video/mp4">
+         Your browser does not support the videos, you should use a better one.
+         But thanks for trying to help :)
+       </video>
+      </md-card-content>
+    </md-card>
+</md-content>
+</body>
+</html>

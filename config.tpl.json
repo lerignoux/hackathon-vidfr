@@ -1,0 +1,8 @@
+{
+  "admin": {
+    "password": "pass"
+  },
+  "content": {
+      "scenes": 3
+    }
+}
