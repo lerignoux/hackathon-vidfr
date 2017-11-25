@@ -4,7 +4,7 @@ A hackaton mini game backend project
 
 ## tldr
 ```
-docker run --name hackathon-vidfr-db -d mongo
+docker run --name hackaton-vidfr-db -d mongo
 docker run --name hackaton-vidfr --restart=always -p 1443:80 --link hackaton-vidfr-db:mongo -v ~/Projects/hackaton-vidfr/:/app -d jazzdd/alpine-flask
 ```
 
@@ -60,7 +60,7 @@ Rest Json api
 'code': 200, data: {'game_id': '000', 'battle_tag': '1234'}}
 ```
 
-### POST /game{battle_tag}
+### POST /game{user_id, battle_tag}
   -> game_id
 //join a game
 
@@ -69,7 +69,7 @@ Rest Json api
 
 #### ex:
 ```
-{'code': 200, 'data': {'game_id': '000'}}
+{'code': 200, 'data': {'game_id': '000', 'title':'content_tile'}}
 ```
 
 ### GET /scene{game_id, user_id}

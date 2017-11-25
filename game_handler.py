@@ -50,7 +50,7 @@ class GameHandler(object):
 
     def new_game(self, user_id):
         entry = {
-            'battle_tag': UserHandler.get_user(user_id),
+            'battle_tag': UserHandler.get_user(user_id).username,
             'content_id': ContentHandler.get_content(played=self.get_user_history(user_id)),
             'users': {user_id: {'result': []}},
             'status': 'requested'
@@ -58,7 +58,7 @@ class GameHandler(object):
         return self.game.find_one({'_id': self.game.insert_one(entry).inserted_id})
 
     def join_game(self, user_id, battle_tag):
-        game_id = self.game.find_one({'user_id': user_id})._id
+        game_id = self.game.find_one({'battle_tag': battle_tag})._id
         self.game.update_one(
             {'_id': game_id},
             {'users.%s' % user_id: {'$set': {'result': []}}},
