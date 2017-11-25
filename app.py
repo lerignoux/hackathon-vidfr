@@ -66,6 +66,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/play', methods=['GET'])
+def play():
+    return render_template('play.html')
+
+
 @app.route('/admin', methods=['GET'])
 def admin():
     return render_template('admin.html')
@@ -78,17 +83,28 @@ def new_user():
     """
     data = json.loads(request.data)
     username = data.get('username')
+    password = data.get('password')
     try:
-        user = UserHandler().add_user(username)
+        user = UserHandler().add_user(username, password)
     except DuplicateKeyError as e:
         raise InvalidUsage(str(e), status_code=403)
 
     return json.dumps(UserHandler.to_dict(user))
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    data = json.loads(request.data)
+    username = data.get('username')
+    password = data.get('password')
+    return json.dumps(UserHandler.to_dict(UserHandler().log_user(username, password)))
+
+
 @app.route('/user', methods=['GET'])
 def get_user():
     user_id = request.args.get('user_id')
+    if not user_id:
+        UserHandler().get_all_users()
     user = UserHandler().get_user(user_id)
     if not user:
         raise InvalidUsage("User %s not found" % user_id, status_code=404)
@@ -118,13 +134,7 @@ def game():
 def get_scene():
     user_id = request.args.get('user_id')
     game_id = request.args.get('game_id')
-    GameHandler().get_user_scene(user_id, game_id)
-    return json.dumps({
-        'content': 'firstSceneVideo.mp4',
-        'choices': {'good': 'Une Demi', 'bad': "Un demi"},
-        'good': {'content': "MyGoodAnswer.mp4", 'reason': "Yeah cheers to that"},
-        'bad': {'content': "MyBadAnswre.mp4", 'reason': "You should know that, drink more"}
-    })
+    return json.dumps(GameHandler().get_scene(user_id, game_id))
 
 
 @app.route('/scene', methods=['POST'])
@@ -135,7 +145,7 @@ def post_scene():
     data = json.loads(request.data)
     user_id = data.get('user_id')
     game_id = data.get('game_id')
-    choice = data.get('Choice')
+    choice = data.get('choice')
     try:
         GameHandler().update_user_answer(user_id, game_id, choice)
     except BadAnswerException as e:

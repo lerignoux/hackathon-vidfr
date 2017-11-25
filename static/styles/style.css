@@ -18,3 +18,11 @@ transform: translate3d(-50%, 0, 0);
 .md-toolbar-tools img {
   margin-right: 8px;
 }
+
+.good {
+  color: green;
+}
+
+.bad {
+  color: red;
+}

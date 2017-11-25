@@ -30,10 +30,14 @@ class UserHandler(object):
 
     def log_user(self, username, password):
         user = self.user.find_one({'username': username})
-        if user.passord and user.password == password:
+        log.info(password)
+        log.info(user.get('password'))
+        if user.get('password') is None:
+            return user
+        if str(user['password']) == str(password):
             return user
         else:
-            return None
+            raise Exception("invalid password")
 
     @classmethod
     def to_dict(cls, user):

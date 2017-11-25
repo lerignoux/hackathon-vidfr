@@ -30,14 +30,14 @@ class ContentHandler(object):
         return result == 1
 
     def get_content(self, played=[]):
-        content = self.content.find_one({'_id': {"$nin": played}}, {'_id': 0})
+        content = self.content.find_one({'_id': {"$nin": played}})
         if not content:
-            content = self.content.find_one({}, {'_id': 0})
+            content = self.content.find_one({})
         return content
 
     def get_content_scene(self, content_id, scene):
-        content = self.content.find_one({'_id': content_id}, {'_id': 0})
-        return content.scenes[scene]
+        content = self.content.find_one({'_id': content_id})
+        return content['scenes'][scene]
 
     def get_all(self):
         return list(self.content.find())
