@@ -29,8 +29,8 @@ ex:
         'username': 'toto',
         'history': [{
             'game_id': '0',
-            'player': {'score': 3},
-            'opponent': {'score': 1}
+            'player': {'result': [0, 0, 1]},
+            'opponent': {'result': [1, 1, 0]}
         }]
     }
 }
