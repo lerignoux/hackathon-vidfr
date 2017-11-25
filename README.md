@@ -12,6 +12,14 @@ docker run --name hackathon-ff --restart=always -p 1443:80 --link hackathon-ff-d
 
 Rest Json api
 
+### POST /users{username}
+-> user_id
+
+ex
+```
+{'code': 200, 'data': {'user_id': '000', 'username': 'toto'}}
+```
+
 ### GET /user
 -> name
 -> list of battle history
