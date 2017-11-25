@@ -37,6 +37,15 @@
       </md-toolbar>
 
       <span>
+        <md-icon md-svg-src="static/images/team.svg"></md-icon>
+        Our team:<br>
+          &nbsp; &nbsp; &nbsp; Aline<br>
+          &nbsp; &nbsp; &nbsp; Laurent<br>
+          &nbsp; &nbsp; &nbsp; Roberta<br>
+          &nbsp; &nbsp; &nbsp; ZhenWei<br>
+      </span>
+
+      <span>
         <a href="static/BusinessPlan.pdf">
           <md-button class="md-icon-button" aria-label="Business Plan">
             <md-tooltip md-direction="bottom">Our business plan</md-tooltip>
@@ -46,13 +55,101 @@
           Our Business plan.
       </span>
 
+      <span>
+        <a href="static/Presentation.pdf">
+          <md-button class="md-icon-button" aria-label="Business Plan">
+            <md-tooltip md-direction="bottom">Our Presentation</md-tooltip>
+            <md-icon md-svg-src="static/images/ppt.svg"></md-icon>
+          </md-button>
+        </a>
+          Our Presentations.
+      </span>
 
+      <br>
+      <a href="static/videos/Presentation.mp4">Presentation</a>
+      <br>
       <md-card-content class="video-container">
         <video width="640" controls>
-         <source src="{{ url_for('static', filename='videos/TFF.mp4') }}" type="video/mp4">
+         <source src="{{ url_for('static', filename='videos/Presentation.mp4') }}" type="video/mp4">
          Your browser does not support the videos, you should use a better one.
          But thanks for trying to help :)
        </video>
+       <br>
+
+       <a href="static/videos/Presentation_good.mp4">Bad</a>
+       <br>
+       <video width="640" controls>
+        <source src="{{ url_for('static', filename='videos/Presentation_good.mp4') }}" type="video/mp4">
+        Your browser does not support the videos, you should use a better one.
+        But thanks for trying to help :)
+      </video>
+      <br>
+
+      <a href="static/videos/Presentation_bad.mp4">Bad</a>
+      <br>
+      <video width="640" controls>
+       <source src="{{ url_for('static', filename='videos/Presentation_bad.mp4') }}" type="video/mp4">
+       Your browser does not support the videos, you should use a better one.
+       But thanks for trying to help :)
+     </video>
+
+     <br>
+     <a href="static/videos/EnviePressante.mp4">EnviePressante</a>
+     <br>
+     <md-card-content class="video-container">
+       <video width="640" controls>
+        <source src="{{ url_for('static', filename='videos/EnviePressante.mp4') }}" type="video/mp4">
+        Your browser does not support the videos, you should use a better one.
+        But thanks for trying to help :)
+      </video>
+      <br>
+
+      <a href="static/videos/EnviePressante_good.mp4">Bad</a>
+      <br>
+      <video width="640" controls>
+       <source src="{{ url_for('static', filename='videos/EnviePressante_good.mp4') }}" type="video/mp4">
+       Your browser does not support the videos, you should use a better one.
+       But thanks for trying to help :)
+     </video>
+     <br>
+
+     <a href="static/videos/EnviePressante_bad.mp4">Bad</a>
+     <br>
+     <video width="640" controls>
+      <source src="{{ url_for('static', filename='videos/EnviePressante_bad.mp4') }}" type="video/mp4">
+      Your browser does not support the videos, you should use a better one.
+      But thanks for trying to help :)
+    </video>
+
+
+    <br>
+    <a href="static/videos/MenageATrois.mp4">Menage a trois</a>
+    <br>
+    <md-card-content class="video-container">
+      <video width="640" controls>
+       <source src="{{ url_for('static', filename='videos/MenageATrois.mp4') }}" type="video/mp4">
+       Your browser does not support the videos, you should use a better one.
+       But thanks for trying to help :)
+     </video>
+     <br>
+
+     <a href="static/videos/MenageATrois_good.mp4">Bad</a>
+     <br>
+     <video width="640" controls>
+      <source src="{{ url_for('static', filename='videos/MenageATrois_good.mp4') }}" type="video/mp4">
+      Your browser does not support the videos, you should use a better one.
+      But thanks for trying to help :)
+    </video>
+    <br>
+
+    <a href="static/videos/MenageATrois_bad.mp4">Bad</a>
+    <br>
+    <video width="640" controls>
+     <source src="{{ url_for('static', filename='videos/MenageATrois_bad.mp4') }}" type="video/mp4">
+     Your browser does not support the videos, you should use a better one.
+     But thanks for trying to help :)
+   </video>
+
       </md-card-content>
     </md-card>
 </md-content>

@@ -6,24 +6,8 @@ md-toast.md-success-toast-theme .md-toast-content{
   text-align: center;
 }
 
-table.md-table th.md-column, table.md-table td.md-cell {
-  color: #fff;
-}
-
-.green {
-  color: green;
-}
-
-.red {
-  color: #ee5555;
-}
-
 a {
-  color: #ffffff
-}
-
-a:visited {
-  color: #9999ff
+    text-align: center;
 }
 
 md-toast.md-center {

@@ -104,6 +104,8 @@ def game():
     data = json.loads(request.data)
     battle_tag = data.get('battle_tag')
     user_id = data.get('user_id')
+    if user_id is None:
+        raise InvalidUsage("user_id required", status_code=401)
     if battle_tag is not None:
         game = GameHandler().join_game(user_id, battle_tag)
         return json.dumps(GameHandler.to_dict(game))
