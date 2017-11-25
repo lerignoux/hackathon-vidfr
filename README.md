@@ -15,7 +15,10 @@ Rest Json api
 ### POST /users{username}
 -> user_id
 
-ex
+#### errors:
+403: username already exists
+
+#### ex
 ```
 {'code': 200, 'data': {'user_id': '000', 'username': 'toto'}}
 ```
@@ -29,7 +32,10 @@ ex
     opponent score
 // get user with leaderboards
 
-ex:
+#### errors:
+404: User not found
+
+#### ex:
 ```
 {
     'code': 200,
@@ -44,21 +50,24 @@ ex:
 }
 ```
 
-### POST /game
+### POST /game{user_id}
   ->   battle_tag
   ->   game_id
 // Create a game
 
-ex:
+#### ex:
 ```
 'code': 200, data: {'game_id': '000', 'battle_tag': '1234'}}
 ```
 
-POST /game{battle_tag}
+### POST /game{battle_tag}
   -> game_id
 //join a game
 
-ex:
+#### errors:
+404: game not found
+
+#### ex:
 ```
 {'code': 200, 'data': {'game_id': '000'}}
 ```
@@ -70,7 +79,10 @@ ex:
 -> bad {video_name, explanation}
 // Get next scene content
 
-ex
+#### errors:
+404: game already completed, no scene found
+
+#### ex
 ```
 {
     'code': 200,
@@ -83,10 +95,27 @@ ex
 }
 ```
 
-### POST /scene {user_id, choice='good'/'bad'}
-// Send user answer to this
+### POST /scene {user_id, game_id, choice='good'/'bad'}
+// Send user answer to this game
 
-ex:
+#### errors:
+400: choice not acceptable (must be "good" or "bad")
+404: no game found with this user
+
+#### ex:
 ```
 {'code': 200}
+```
+
+## Misc:
+Setup commands:
+
+### get users:
+```
+curl -XGET localhost:1443/user
+```
+
+### create a user:
+```
+curl -i -XPOST localhost:1443/user -H'Content-Type: ApplicationJson' -d'{"username": "toto"}'
 ```
