@@ -97,7 +97,10 @@ def login():
     data = json.loads(request.data)
     username = data.get('username')
     password = data.get('password')
-    return json.dumps(UserHandler.to_dict(UserHandler().log_user(username, password)))
+    user = UserHandler.to_dict(UserHandler().log_user(username, password))
+    history = GameHandler().get_player_history(user['user_id'])
+    user['history'] = history
+    return json.dumps(user)
 
 
 @app.route('/user', methods=['GET'])
@@ -109,7 +112,10 @@ def get_user():
     if not user:
         raise InvalidUsage("User %s not found" % user_id, status_code=404)
 
-    return json.dumps(UserHandler.to_dict(user))
+    user = UserHandler.to_dict(user)
+    history = GameHandler().get_player_history(user_id)
+    user['history'] = history
+    return json.dumps(user)
 
 
 @app.route('/game', methods=['POST'])

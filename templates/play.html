@@ -1,0 +1,172 @@
+<!doctype html>
+<html ng-app="HackathonFFPlayApp">
+<head>
+  <!-- Angular Material CSS using GitCDN to load directly from `bower-material/master` -->
+  <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
+
+  <!-- Data Table style sheet -->
+  <link href="static/md-data-table.min.css" rel="stylesheet" type="text/css"/>
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+  <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
+
+  <title>VidFr</title>
+    <!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script> -->
+    <script src="{{ url_for('static', filename='play.js') }}"></script>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+</head>
+
+{% raw %}
+<body ng-controller="HackathonFFPlayController" layout-align="center center">
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="center center">
+  <div flex-xs flex-gt-xs="50" layout="column">
+    <md-card ng-if="status=='menu'">
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <img class="md-user-avatar" src="static/images/logo_small.png"/>
+          <h3 ng-if="user_id!==undefined">
+            <span class="md-title">{{username}}</span>
+          </h3>
+
+        </div>
+      </md-toolbar>
+
+      <div ng-if="user_id === undefined">
+        <md-input-container flex-sm>
+          <label>username</label>
+          <input ng-model="username">
+        </md-input-container>
+
+        <md-input-container flex-sm>
+          <label>password</label>
+          <input ng-model="password">
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="log(username, password)">Log-in</md-button>
+        <md-button class="md-primary" ng-click="new(username, password)">Create an account</md-button>
+      </div>
+
+      <div ng-if="user_id !== undefined">
+      <md-button class="md-raised md-primary" ng-click="play()">Create a game</md-button>
+      <md-input-container flex-sm>
+        <label>Game tag</label>
+        <input ng-model="battle_tag">
+      </md-input-container>
+      <md-button class="md-primary" ng-click="join(battle_tag)">Join a game</md-button>
+
+      <md-list layout-padding>
+        <md-list-item class="md-3-line" ng-repeat="game in history">
+          <h3>
+            {{game.title}}
+          </h3>
+          <span flex></span>
+          <img class='star' src="static/images/star_0.svg" ng-if="game.score[0] == 0"/>
+          <img class='star' src="static/images/star_1.svg" ng-if="game.score[0] == 1"/>
+          <img class='star' src="static/images/star_0.svg" ng-if="game.score[1] == 0"/>
+          <img class='star' src="static/images/star_1.svg" ng-if="game.score[1] == 1"/>
+          <img class='star' src="static/images/star_0.svg" ng-if="game.score[2] == 0"/>
+          <img class='star' src="static/images/star_1.svg" ng-if="game.score[2] == 1"/>
+
+          <span flex></span>
+          <div class="md-list-item-text" ng-repeat="(op, score) in game.opponents">
+            <h3>{{op}}</h3>
+            <span flex></span>
+            <img class='star' src="static/images/star_0.svg" ng-if="score[0] == 0"/>
+            <img class='star' src="static/images/star_1.svg" ng-if="score[0] == 1"/>
+            <img class='star' src="static/images/star_0.svg" ng-if="score[1] == 0"/>
+            <img class='star' src="static/images/star_1.svg" ng-if="score[1] == 1"/>
+            <img class='star' src="static/images/star_0.svg" ng-if="score[2] == 0"/>
+            <img class='star' src="static/images/star_1.svg" ng-if="score[2] == 1"/>
+          </div>
+        </md-list-item>
+      </md-list>
+
+    </div>
+    </md-card>
+
+
+
+    <md-card ng-if="status=='question'">
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <img class="md-user-avatar" src="static/images/logo_small.png"/>
+          <h3>
+            <span class="md-title">{{title}}</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-raised" aria-label="Invite tag" ng-if="battle_tag !== undefined">
+            <md-tooltip md-direction="bottom">Share this with your friend to challenge them</md-tooltip>
+            {{battle_tag}}
+          </md-button>
+        </div>
+      </md-toolbar>
+
+      <md-card-content class="video-container">
+        <video width="640" controls>
+        <source src="{{getVideo(scene)}}" type="video/mp4">
+          Your browser does not support the videos, you should use a better one.
+          But thanks for trying to help :)
+        </video>
+        <br>
+        <br>
+        <md-button class="md-raised md-primary" ng-click="userChoice('good')">{{scene.choices.good}}</md-button>
+        <md-button class="md-raised md-primary" ng-click="userChoice('bad')">{{scene.choices.bad}}</md-button>
+      </md-card-content>
+    </md-card>
+
+
+
+    <md-card ng-if="status=='answer'">
+      <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+          <img class="md-user-avatar" src="static/images/logo_small.png"/>
+          <h3>
+            <span class="md-title">{{title}}</span>
+          </h3>
+          <span flex></span>
+          <md-button class="md-raised" aria-label="Invite tag" ng-if="battle_tag !== undefined">
+            <md-tooltip md-direction="bottom">Share this with your friend to challenge them</md-tooltip>
+            {{battle_tag}}
+          </md-button>
+        </div>
+      </md-toolbar>
+
+     <md-card-content class="video-container">
+       <h1 class="good">Good answer:</h1>
+       {{scene.good.reason}}
+       <br>
+       <br>
+        <video width="640" controls>
+         <source ng-src="{{getGoodVideo(scene)}}" type="video/mp4">
+         Your browser does not support the videos, you should use a better one.
+         But thanks for trying to help :)
+        </video>
+        <br>
+
+        <h1 class="bad">Bad answer:</h1>
+        {{scene.bad.reason}}
+        <br>
+        <br>
+        <video width="640" controls>
+          <source ng-src="{{getBadVideo(scene)}}" type="video/mp4">
+          Your browser does not support the videos, you should use a better one.
+          But thanks for trying to help :)
+        </video>
+        <br>
+        <br>
+        <md-button class="md-raised md-primary" ng-click="next()" ng-if="answers.length < 3">next</md-button>
+        <md-button class="md-raised md-primary" ng-click="exit()" ng-if="answers.length == 3">finish</md-button>
+
+      </md-card-content>
+    </md-card>
+  </div>
+</md-content>
+</body>
+{% endraw %}
+</html>

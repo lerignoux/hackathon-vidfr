@@ -29,7 +29,9 @@ class ContentHandler(object):
         result = self.content.find_one({'_id': self.content.insert_one(entry).inserted_id})
         return result == 1
 
-    def get_content(self, played=[]):
+    def get_content(self, played=[], content_id=None):
+        if content_id is not None:
+            return self.content.find_one({'_id': content_id})
         content = self.content.find_one({'_id': {"$nin": played}})
         if not content:
             content = self.content.find_one({})

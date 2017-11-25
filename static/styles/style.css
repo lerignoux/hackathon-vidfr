@@ -2,12 +2,29 @@ md-toast.md-success-toast-theme .md-toast-content{
     background-color: green;
 }
 
+md-toast.md-failure-toast-theme .md-toast-content{
+    background-color: red;
+}
+
 .video-container {
   text-align: center;
 }
 
+.md-title{
+  color: #ffff;
+}
+
 a {
     text-align: center;
+}
+
+h3 {
+  color: #ff4e00;
+  padding-right: 10px;
+}
+
+.star {
+  margin-top: 10px;
 }
 
 md-toast.md-center {

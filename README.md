@@ -41,11 +41,12 @@ Rest Json api
     'code': 200,
     'data': {
         'username': 'toto',
-        'history': [{
-            'game_id': '0',
-            'player': {'result': [0, 0, 1]},
-            'opponent': {'result': [1, 1, 0]}
-        }]
+        'history': [
+            {
+              opponent_name: [0, 0, 1]
+              opponent_2: [1, 2, 1]
+            }
+        ]
     }
 }
 ```

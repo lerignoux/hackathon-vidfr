@@ -1,6 +1,7 @@
 import json
 import logging
 import pymongo
+import random
 
 from bson import ObjectId
 from pymongo import MongoClient
@@ -21,7 +22,6 @@ class GameEndedException(Exception):
 
 class GameHandler(object):
 
-    Choices = {'good': 1, 'bad': 0}
     ContentScenes = 3
 
     def __init__(self):
@@ -47,8 +47,9 @@ class GameHandler(object):
 
     def new_game(self, user_id):
         content = ContentHandler().get_content(played=self.get_user_history(user_id))
+        battle_tag = "%s#%d" % (UserHandler().get_user(user_id)['username'], random.randint(1111, 9999))
         entry = {
-            'battle_tag': UserHandler().get_user(user_id)['username'],
+            'battle_tag': battle_tag,
             'content_id': content['_id'],
             'users': {user_id: {'result': []}},
             'status': 'requested'
@@ -74,8 +75,8 @@ class GameHandler(object):
         return ContentHandler().get_content_scene(game['content_id'], scene_id)
 
     def update_user_answer(self, user_id, game_id, answer):
-        if answer not in self.Choices.keys():
-            raise BadAnswerException("only %s answers are accepted" % self.Choices.keys())
+        if answer not in [0, 1]:
+            raise BadAnswerException("only %s answers are accepted" % [0, 1])
         game = self.game.find_one({'_id': ObjectId(game_id)})
         if len(game['users'][user_id]['result']) >= self.config.get('scenes', 3):
             raise GameEndedException("All scenes answered already by user %s" % user_id)
@@ -85,6 +86,23 @@ class GameHandler(object):
             {'$push': {'users.%s.result' % user_id: answer}},
             upsert=False
         )
+
+    def get_player_history(self, user_id):
+        history = []
+        key = "users.%s" % user_id
+        games = self.game.find({key: {'$exists': 1}})
+        for game in games:
+            content = ContentHandler().get_content(content_id=game['content_id'])
+            res = {'score': [], 'opponents': {}, 'title': content['title']}
+            for key in game['users']:
+                if user_id == key:
+                    res['score'] = game['users'][key]['result']
+                else:
+                    name = UserHandler().get_user(key)['username']
+                    res['opponents'][name] = game['users'][key]['result']
+            if len(res['score']) > 0 or len(res['opponents'].keys()) > 1:
+                history.append(res)
+        return history
 
     @classmethod
     def to_dict(cls, game):

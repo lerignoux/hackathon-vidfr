@@ -30,8 +30,6 @@ class UserHandler(object):
 
     def log_user(self, username, password):
         user = self.user.find_one({'username': username})
-        log.info(password)
-        log.info(user.get('password'))
         if user.get('password') is None:
             return user
         if str(user['password']) == str(password):
