@@ -50,8 +50,8 @@ class GameHandler(object):
 
     def new_game(self, user_id):
         entry = {
-            'battle_tag': UserHandler.get_user(user_id).username,
-            'content_id': ContentHandler.get_content(played=self.get_user_history(user_id)),
+            'battle_tag': UserHandler().get_user(user_id).username,
+            'content_id': ContentHandler().get_content(played=self.get_user_history(user_id)),
             'users': {user_id: {'result': []}},
             'status': 'requested'
         }
