@@ -18,7 +18,7 @@ class UserHandler(object):
         self.db.user.create_index([('username', pymongo.ASCENDING)], unique=True)
 
     def get_user(self, user_id):
-        return self.user.find_one({'user_id': ObjectId(user_id)})
+        return self.user.find_one({'_id': ObjectId(user_id)})
 
     def add_user(self, username, password=None):
         entry = {
@@ -30,7 +30,7 @@ class UserHandler(object):
 
     def log_user(self, username, password):
         user = self.user.find_one({'username': username})
-        if user.passord == password:
+        if user.passord and user.password == password:
             return user
         else:
             return None
