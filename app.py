@@ -186,6 +186,8 @@ def add_content():
     data = json.loads(request.data)
     password = data.get('password')
 
+    log.info("admin request with password: %s" % password)
+
     with open('config.json', 'r') as f:
         if password != json.load(f).get('admin', {}).get('password', ''):
             raise InvalidUsage("Passord credentials required", status_code=401)

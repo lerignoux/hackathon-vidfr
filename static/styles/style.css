@@ -43,3 +43,7 @@ transform: translate3d(-50%, 0, 0);
 .bad {
   color: red;
 }
+
+video {
+  width: 100%;
+}
