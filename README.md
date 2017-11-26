@@ -15,8 +15,8 @@ You indeed not often learn these in the books.
 
 The content is not publicly available, but feel free to reach us if you are interested
 
-[Our presentation](static/Presentation.pdf)
-[Our business model](static/BusinessModel.pdf)
+[Our presentation](/static/Presentation.pdf)
+[Our business model](/static/BusinessModel.pdf)
 
 This Hackaton was organised by the Alliance Francaise of Shanghai. Theme was French language and culture
 
